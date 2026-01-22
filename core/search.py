@@ -3,17 +3,19 @@ from typing import List, Dict
 
 def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
     """
-    Simple keyword search over job title and skills.
+    Multi-word, partial keyword search over job title and skills.
     """
-    query = query.lower().strip()
+    query_terms = query.lower().strip().split()
     results = []
 
     for job in jobs:
-        if query in job["title"]:
-            results.append(job)
-            continue
+        searchable_text = " ".join(
+            [job["title"]] + job["skills"]
+        )
 
-        if any(query in skill for skill in job["skills"]):
-            results.append(job)
+        for term in query_terms:
+            if term in searchable_text:
+                results.append(job)
+                break
 
     return results
