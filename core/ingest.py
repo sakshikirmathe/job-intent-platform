@@ -5,25 +5,35 @@ REQUIRED_FIELDS = {"job_id", "title", "skills", "location", "experience"}
 
 
 def is_valid_job(job: Dict) -> bool:
-    """Check if a job record contains required fields."""
     return REQUIRED_FIELDS.issubset(job.keys())
 
 
+def normalize_job(job: Dict) -> Dict:
+    """Normalize text fields for consistent searching."""
+    return {
+        "job_id": job["job_id"],
+        "title": job["title"].strip().lower(),
+        "skills": sorted({skill.strip().lower() for skill in job["skills"]}),
+        "location": job["location"].strip().lower(),
+        "experience": job["experience"].strip().lower(),
+    }
+
+
 def load_jobs(path: str) -> List[Dict]:
-    """
-    Load and validate job data from a JSON file.
-    Invalid records are skipped.
-    """
     with open(path, "r", encoding="utf-8") as f:
         raw_jobs = json.load(f)
 
-    valid_jobs = [job for job in raw_jobs if is_valid_job(job)]
+    valid_jobs = []
+    for job in raw_jobs:
+        if is_valid_job(job):
+            valid_jobs.append(normalize_job(job))
+
     return valid_jobs
 
 
 def main():
     jobs = load_jobs("data/jobs.json")
-    print(f"Loaded {len(jobs)} valid job(s)")
+    print(f"Loaded {len(jobs)} normalized job(s)")
     print(jobs)
 
 
