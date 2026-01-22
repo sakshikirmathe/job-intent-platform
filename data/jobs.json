@@ -1,0 +1,9 @@
+[
+  {
+    "job_id": "job_001",
+    "title": "Junior Data Analyst",
+    "skills": ["sql", "excel"],
+    "location": "India",
+    "experience": "fresher"
+  }
+]
