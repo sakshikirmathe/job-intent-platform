@@ -1,5 +1,6 @@
 import json
 from typing import List, Dict
+from search import keyword_search
 
 REQUIRED_FIELDS = {"job_id", "title", "skills", "location", "experience"}
 
@@ -33,9 +34,9 @@ def load_jobs(path: str) -> List[Dict]:
 
 def main():
     jobs = load_jobs("data/jobs.json")
-    print(f"Loaded {len(jobs)} normalized job(s)")
-    print(jobs)
-
+    results = keyword_search(jobs, "data")
+    print(f"Found {len(results)} job(s)")
+    print(results)
 
 if __name__ == "__main__":
     main()
