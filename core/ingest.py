@@ -10,7 +10,6 @@ def is_valid_job(job: Dict) -> bool:
 
 
 def normalize_job(job: Dict) -> Dict:
-    """Normalize text fields for consistent searching."""
     return {
         "job_id": job["job_id"],
         "title": job["title"].strip().lower(),
@@ -24,17 +23,29 @@ def load_jobs(path: str) -> List[Dict]:
     with open(path, "r", encoding="utf-8") as f:
         raw_jobs = json.load(f)
 
-    valid_jobs = []
+    jobs = []
     for job in raw_jobs:
         if is_valid_job(job):
-            valid_jobs.append(normalize_job(job))
+            jobs.append(normalize_job(job))
 
-    return valid_jobs
-
-
+    return jobs
+    
 def main():
     jobs = load_jobs("data/jobs.json")
-    results = keyword_search(jobs, "numbers")
+
+    query = "numbers"
+    results = keyword_search(jobs, query)
+
+    if not results:
+        print("No results found.")
+        return
+
+    display_intent = results[0].get("display_intent", "")
+
+    if display_intent and display_intent != query:
+        print("No direct matches found.")
+        print(f"Showing results based on inferred intent: {display_intent}")
+
     for result in results:
         print(result)
 

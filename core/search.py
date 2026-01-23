@@ -1,13 +1,15 @@
 from typing import List, Dict
-from intent import INTENT_MAP
+from intent import expand_query
 
 
 def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
     """
-    Keyword search with relevance scoring and explainability.
+    Keyword search with relevance scoring, explainability,
+    and intent expansion.
     """
-    expanded_query = expand_query(query)
+    original_query, expanded_query, display_intent = expand_query(query)
     query_terms = expanded_query.split()
+
     results = []
 
     for job in jobs:
@@ -28,21 +30,10 @@ def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
             results.append({
                 "job": job,
                 "score": score,
-                "reasons": reasons
+                "reasons": reasons,
+                "expanded_query": expanded_query,
+                "display_intent": display_intent
             })
 
     results.sort(key=lambda x: x["score"], reverse=True)
     return results
-
-def expand_query(query: str) -> str:
-    """
-    Expand vague queries using intent mapping.
-    """
-    expanded_terms = query.lower().split()
-
-    for term in expanded_terms:
-        if term in INTENT_MAP:
-            expanded_terms.extend(INTENT_MAP[term])
-
-    # remove duplicates
-    return " ".join(sorted(set(expanded_terms)))
