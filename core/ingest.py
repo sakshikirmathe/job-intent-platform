@@ -34,7 +34,7 @@ def load_jobs(path: str) -> List[Dict]:
 
 def main():
     jobs = load_jobs("data/jobs.json")
-    results = keyword_search(jobs, "data sql")
+    results = keyword_search(jobs, "numbers")
     for result in results:
         print(result)
 
