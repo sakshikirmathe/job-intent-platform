@@ -1,4 +1,38 @@
-venv/
+
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
 .env
+.venv
+venv/
+ENV/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Notebooks
 .ipynb_checkpoints/
+
+# Temporary files
+tmp/
+temp/
+
+# Large datasets (keep sample data only)
+*.zip
+*.tar
+*.gz
+
+# Python packaging
+build/
+dist/
+*.egg-info/
