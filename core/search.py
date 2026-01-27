@@ -1,6 +1,6 @@
 from typing import List, Dict
 from intent import expand_query
-
+from analytics import log_search_event
 
 def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
     """
@@ -17,7 +17,7 @@ def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
         reasons = []
 
         for term in query_terms:
-            if term in job["title"]:
+            if term in job["job_title"]:
                 score += 3
                 reasons.append(f"title match: {term}")
 
@@ -36,4 +36,12 @@ def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
             })
 
     results.sort(key=lambda x: x["score"], reverse=True)
+    intent_used = original_query != expanded_query
+
+    log_search_event(
+        original_query=original_query,
+        expanded_query=expanded_query,
+        result_count=len(results),
+        intent_used=intent_used
+    )
     return results

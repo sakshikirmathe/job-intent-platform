@@ -1,39 +1,20 @@
 import json
-from typing import List, Dict
 from search import keyword_search
-
-REQUIRED_FIELDS = {"job_id", "title", "skills", "location", "experience"}
-
-
-def is_valid_job(job: Dict) -> bool:
-    return REQUIRED_FIELDS.issubset(job.keys())
+from analytics import get_analytics_summary, get_top_queries
 
 
-def normalize_job(job: Dict) -> Dict:
-    return {
-        "job_id": job["job_id"],
-        "title": job["title"].strip().lower(),
-        "skills": sorted({skill.strip().lower() for skill in job["skills"]}),
-        "location": job["location"].strip().lower(),
-        "experience": job["experience"].strip().lower(),
-    }
-
-
-def load_jobs(path: str) -> List[Dict]:
+def load_jobs(path: str):
+    """
+    Load already-cleaned job data produced by the pipeline.
+    """
     with open(path, "r", encoding="utf-8") as f:
-        raw_jobs = json.load(f)
+        return json.load(f)
 
-    jobs = []
-    for job in raw_jobs:
-        if is_valid_job(job):
-            jobs.append(normalize_job(job))
 
-    return jobs
-    
 def main():
-    jobs = load_jobs("data/jobs.json")
+    jobs = load_jobs("data/clean_jobs.json")
 
-    query = "numbers"
+    query = "Data Engineer"
     results = keyword_search(jobs, query)
 
     if not results:
@@ -48,6 +29,16 @@ def main():
 
     for result in results:
         print(result)
+
+    print("\n--- SEARCH ANALYTICS SUMMARY ---")
+    summary = get_analytics_summary()
+    for key, value in summary.items():
+        print(f"{key}: {value}")
+
+    print("\n--- TOP QUERIES ---")
+    for query, count in get_top_queries():
+        print(f"{query}: {count}")
+
 
 if __name__ == "__main__":
     main()

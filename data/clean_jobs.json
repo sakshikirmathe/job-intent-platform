@@ -1,0 +1,52 @@
+[
+  {
+    "job_title": "junior data analyst",
+    "company": "ABC Corp",
+    "location": "bangalore",
+    "description": "Looking for a Jr. Data Analyst with Excel, SQL. Freshers welcome!",
+    "skills": [
+      "excel",
+      "sql"
+    ]
+  },
+  {
+    "job_title": "data analyst",
+    "company": "XYZ Ltd",
+    "location": "india",
+    "description": "Analyze data, build dashboards. Skills: SQL, Excel, Python.",
+    "skills": [
+      "excel",
+      "python",
+      "sql"
+    ]
+  },
+  {
+    "job_title": "data analyst",
+    "company": "Startup Inc",
+    "location": "unknown",
+    "description": "Work on numbers, reports, KPIs. Must know Excel.",
+    "skills": [
+      "excel"
+    ]
+  },
+  {
+    "job_title": "business analyst",
+    "company": "Enterprise Co",
+    "location": "remote",
+    "description": "Strong analytical skills, stakeholder management, SQL preferred.",
+    "skills": [
+      "sql"
+    ]
+  },
+  {
+    "job_title": "analyst data",
+    "company": "ABC Corp",
+    "location": "bangalore",
+    "description": "Data analysis role. Tools: Excel, Power BI, SQL.",
+    "skills": [
+      "excel",
+      "power bi",
+      "sql"
+    ]
+  }
+]
