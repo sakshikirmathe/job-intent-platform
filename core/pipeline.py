@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-from raw_loader import load_raw_jobs, inspect_raw_data
-from staging import stage_rows
-from cleaning import clean_rows
+from .raw_loader import load_raw_jobs, inspect_raw_data
+from .staging import stage_rows
+from .cleaning import clean_rows
 
 
 OUTPUT_PATH = Path("data/clean_jobs.json")

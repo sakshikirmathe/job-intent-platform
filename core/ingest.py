@@ -1,6 +1,7 @@
 import json
-from search import keyword_search
-from analytics import get_analytics_summary, get_top_queries
+from .search import keyword_search
+from .analytics import get_analytics_summary, get_top_queries
+
 
 
 def load_jobs(path: str):

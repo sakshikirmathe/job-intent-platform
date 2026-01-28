@@ -1,6 +1,6 @@
 from typing import List, Dict
-from intent import expand_query
-from analytics import log_search_event
+from .intent import expand_query
+from .analytics import log_search_event
 
 def keyword_search(jobs: List[Dict], query: str) -> List[Dict]:
     """

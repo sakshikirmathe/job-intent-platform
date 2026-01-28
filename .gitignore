@@ -36,3 +36,5 @@ temp/
 build/
 dist/
 *.egg-info/
+
+storage/*.json
